@@ -1,0 +1,81 @@
+
+
+ 
+
+
+<html lang="en">
+
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <link rel="stylesheet" href="./css/styles.css" />
+
+
+
+  </head>
+
+  <body>
+    {{>header}}
+
+  <p> Use this website to get the weather</p>
+
+      <form >
+        <input placeholder="Enter location here"/>
+        <button>Search</button>
+
+        <h1></h1>
+
+      </form>
+
+    {{>footer}}
+
+
+       <script>
+
+
+
+
+   const weatherForm =  document.querySelector('form');
+           
+
+    const search = document.querySelector('input');
+
+    const result = document.querySelector('h1');
+  
+
+
+      weatherForm.addEventListener('submit',(e)=>{
+
+        e.preventDefault();
+
+        const location = search.value;
+
+
+      if(location){
+         fetch(`http://localhost:3000/weather?address=${location}`).then((res)=>{
+            res.json().then(val=>{
+
+        if(val.error){
+          console.log(val.error)
+           result.textContent = val.error.err
+        }else{
+          console.log(val)
+
+          result.textContent = val.forecast
+        }
+
+       
+      })
+    })
+      }
+
+        console.log(location)
+      })
+
+   </script>
+  </body>
+
+</html>
+
+    
